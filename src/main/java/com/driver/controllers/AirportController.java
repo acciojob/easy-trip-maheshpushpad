@@ -5,23 +5,24 @@ import com.driver.model.Airport;
 import com.driver.model.City;
 import com.driver.model.Flight;
 import com.driver.model.Passenger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
+
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 
 @RestController
 public class AirportController {
+    @Autowired
+    AirportService airportService = new AirportService();
+
     @PostMapping("/add_airport")
-    public String addAirport(@RequestBody Airport airport){
+    public String addAirport(@RequestBody Airport airport) {
 
         //Simply add airport details to your database
         //Return a String message "SUCCESS"
-
         airportService.addAirport(airport);
 
         return "SUCCESS";
@@ -43,7 +44,6 @@ public class AirportController {
         //If there is no direct flight between 2 cities return -1.
 
         return airportService.getShortestDurationOfPossibleBetweenTwoCities(fromCity,toCity);
-
     }
 
     @GetMapping("/get-number-of-people-on-airport-on/{date}")
@@ -99,7 +99,7 @@ public class AirportController {
     }
 
     @PostMapping("/add-flight")
-    public String addFlight(@RequestBody Flight flight){
+    public String addFlight(@RequestBody Flight flight)  {
 
         //Return a "SUCCESS" message string after adding a flight.
         airportService.addFlight(flight);
@@ -130,14 +130,13 @@ public class AirportController {
 
 
     @PostMapping("/add-passenger")
-    public String addPassenger(@RequestBody Passenger passenger){
+    public String addPassenger(@RequestBody Passenger passenger)  {
 
         //Add a passenger to the database
         //And return a "SUCCESS" message if the passenger has been added successfully.
-
         airportService.addPassenger(passenger);
 
-        return "SUCCESS"
+        return "SUCCESS";
     }
 
 
